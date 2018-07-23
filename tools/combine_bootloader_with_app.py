@@ -191,6 +191,9 @@ if __name__ == '__main__':
         'k64f': {
             'mem_start': '0x0'
         },
+        'hexiwear': {
+            'mem_start': '0x0'
+        },        
         'ublox_evk_odin_w2': {
             'mem_start': '0x08000000'
         },
