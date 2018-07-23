@@ -4,7 +4,6 @@
         "MBEDTLS_USER_CONFIG_FILE=\"mbedTLSConfig_mbedOS.h\"",
         "MBED_CLIENT_USER_CONFIG_FILE=\"mbed_cloud_client_user_config.h\"",
         "MBED_CLOUD_CLIENT_USER_CONFIG_FILE=\"mbed_cloud_client_user_config.h\"",
-        "MBED_CONF_APP_MAIN_STACK_SIZE=4608",
         "PLATFORM_ENABLE_BUTTON=1",
         "PLATFORM_ENABLE_LED=1"
     ],
@@ -66,6 +65,12 @@
             "sotp-section-2-address"           : "(36*1024)",
             "sotp-section-2-size"              : "( 4*1024)"
         },
+        "HEXIWEAR": {
+            "sotp-section-1-address"           : "(36*1024)",
+            "sotp-section-1-size"              : "( 4*1024)",
+            "sotp-section-2-address"           : "(40*1024)",
+            "sotp-section-2-size"              : "( 4*1024)"
+        },        
         "NUCLEO_F429ZI": {
             "sotp-section-1-address"           : "(0x08000000+32*1024)",
             "sotp-section-1-size"              : "(16*1024)",
@@ -80,4 +85,3 @@
         }
      }
 }
-

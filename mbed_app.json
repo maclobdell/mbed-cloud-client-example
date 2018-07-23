@@ -32,12 +32,37 @@
             "target.mbed_app_start"            : "0x08010400",
             "update-client.bootloader-details" : "0x08007300",
             "update-client.application-details": "(0x08000000+64*1024)"
-        }
+        },
+        "HEXIWEAR": {
+            "target.mbed_app_start"            : "0x0000b400",
+            "update-client.bootloader-details" : "0x00008b60",
+            "update-client.application-details": "(44*1024)",
+            "wifi-tx": "PTD3",
+            "wifi-rx": "PTD2",
+            "main-stack-size"                  : 8192,
+            "button-pinname"                   : "PTA12"
+        }  
     },
     "config": {
         "network-interface": {
             "help": "Options are ETHERNET, WIFI_ESP8266, WIFI_ODIN",
-            "value": "ETHERNET"
+            "value": "WIFI_ESP8266"
+        },
+        "wifi-ssid": {
+            "help": "WiFi SSID",
+            "value": "\"SSID\""
+        },
+        "wifi-password": {
+            "help": "WiFi Password",
+            "value": "\"PASSWORD\""
+        },
+        "wifi-tx": {
+            "help": "TX pin for serial connection to external device",
+            "value": "D1"
+        },
+        "wifi-rx": {
+            "help": "RX pin for serial connection to external device",
+            "value": "D0"
         },
         "developer-mode": {
             "help": "Enable Developer mode to skip Factory enrollment",
@@ -50,6 +75,9 @@
         "led-pinname": {
             "help": "PinName for led, which is attached to led blink resource.",
             "value": "LED_RED"
-        }
+        },
+        "main-stack-size": {
+            "value": 4608
+        }        
     }
 }
