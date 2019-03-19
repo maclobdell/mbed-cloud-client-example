@@ -1,0 +1,102 @@
+{
+    "macros": [
+        "ARM_UC_USE_PAL_BLOCKDEVICE=1",
+        "MBED_CLOUD_CLIENT_UPDATE_STORAGE=ARM_UCP_FLASHIAP_BLOCKDEVICE"
+    ],
+    "config": {
+         "application-start-address": {
+            "help": "Address to the beginning of the active application firmware in flash",
+            "value": null
+        },
+        "flash-start-address": {
+            "help": "Start address of internal flash. Only used in this config to help the definition of other macros.",
+            "value": null
+        },
+        "developer-mode": {
+            "help"      : "Enable Developer mode to skip Factory enrollment",
+            "options"   : [null, 1],
+            "value"     : 1
+        },
+        "button-pinname": {
+            "help"      : "PinName for button.",
+            "value"     : "BUTTON3"
+        },
+        "provide-default-variant": {
+            "value": "QUECTEL_BG96"
+        },
+        "led-pinname"   : {
+            "help"      : "PinName for led, which is attached to led blink resource.",
+            "value"     : "LED1"
+        }
+    },
+    "target_overrides": {
+        "*": {
+            "QUECTEL_BG96.provide-default": true,
+            "QUECTEL_BG96.tx": "p42",
+            "QUECTEL_BG96.rx": "p40",
+            "QUECTEL_BG96.cts": "p35",
+            "QUECTEL_BG96.rts": "p36",
+            "platform.stdio-baud-rate"                  : 115200,
+            "platform.stdio-convert-newlines"           : true,
+            "platform.stdio-buffered-serial"            : true,
+            "mbed-client.event-loop-size"               : 2048,
+            "mbed-cloud-client.external-sst-support"    : true,
+            "nanostack-hal.event_loop_thread_stack_size": 8192,
+            "mbed-trace.enable"                         : false
+        },
+        "NRF52840_DK": {
+            "client_app.pal-user-defined-configuration" : "\"pal_config_legacy_MbedOS.h\"",
+            
+            "nordic.uart_0_fifo_size": 120,
+            "nordic.uart_1_fifo_size": 120,
+            "cellular.debug-at": 0,
+            "client_app.primary_partition_size": 1048576,
+            "lwip.ethernet-enabled": false,
+            "lwip.ipv4-enabled": true,
+            "lwip.ipv6-enabled": true,
+            "lwip.mem-size": 22000,
+            "lwip.ppp-enabled": true,
+            "lwip.tcp-enabled": true,
+            "nsapi.default-cellular-apn": "\"Broadband\"",
+            "nsapi.default-cellular-password": null,
+            "nsapi.default-cellular-sim-pin": "\"1234\"",
+            "nsapi.default-cellular-username": null,
+            "target.OUTPUT_EXT": "hex",
+            "target.features_add": ["BOOTLOADER", "STORAGE"],
+            "target.components_add": [
+                "SPIF",
+                "FLASHIAP"
+            ],
+            "target.features_remove": [
+                "CRYPTOCELL310"
+            ],
+            "target.header_offset": "0x3B000",
+            "target.app_offset": "0x3B400",
+            "target.macros_remove": [
+                "MBEDTLS_CONFIG_HW_SUPPORT"
+            ],
+            "storage_filesystem.internal_base_address" : "(1016*1024)",
+            "storage_filesystem.rbp_internal_size"     : "(2*4*1024)",
+            "storage_filesystem.external_base_address"  : "(0x0)",
+            "storage_filesystem.external_size"          : "(1024*1024*8)",
+            "storage.storage_type"                      : "FILESYSTEM",
+            "storage_filesystem.filesystem"             : "LITTLE",
+            "storage_filesystem.blockdevice"            : "SPIF",
+            "target.network-default-interface-type": "CELLULAR",
+            "target.bootloader_img": "tools/mbed-bootloader.hex",
+            "ppp-cell-iface.baud-rate"   : 57600,
+            "update-client.storage-address": "1024*1024*1",
+            "update-client.bootloader-details": "0x31C08",
+            "update-client.storage-locations": 1,
+            "update-client.storage-size": "1024*1024*1",
+            "update-client.storage-page": 1,
+            "flash-start-address"               : "0x00000000",
+            "client_app.sotp-section-1-address"            : "(MBED_CONF_APP_FLASH_START_ADDRESS+1024*1016)",
+            "client_app.sotp-section-1-size"               : "(4*1024)",
+            "client_app.sotp-section-2-address"            : "(MBED_CONF_APP_FLASH_START_ADDRESS+1024*1020)",
+            "client_app.sotp-section-2-size"               : "(4*1024)",
+            "update-client.application-details" : "(MBED_CONF_APP_FLASH_START_ADDRESS+236*1024)",
+            "application-start-address"         : "(MBED_CONF_APP_FLASH_START_ADDRESS+237*1024)"
+        }
+    }
+}

@@ -16,6 +16,7 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------
 
+#include "AppPower.h"
 #include "simplem2mclient.h"
 #ifdef TARGET_LIKE_MBED
 #include "mbed.h"
