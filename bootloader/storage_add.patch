@@ -1,0 +1,22 @@
+diff --git a/mbed_lib.json b/mbed_lib.json
+index cbb9218..96ae5df 100644
+--- a/mbed_lib.json
++++ b/mbed_lib.json
+@@ -36,7 +36,7 @@
+     "macros": [
+         "MBED_FAULT_HANDLER_DISABLED",
+         "MBEDTLS_USER_CONFIG_FILE=\"bootloader_mbedtls_user_config.h\"",
+-        "DEFAULT_MAX_APPLICATION_SIZE=(MBED_ROM_START + MBED_ROM_SIZE - MBED_CONF_MBED_BOOTLOADER_APPLICATION_START_ADDRESS)",
++        "DEFAULT_MAX_APPLICATION_SIZE=((1024*1024) - (237*1024))",
+         "ARM_UC_PROFILE_MBED_CLOUD_CLIENT=1",
+         "ARM_UC_FEATURE_CRYPTO_PAL=0",
+         "ARM_UC_FEATURE_CRYPTO_MBEDTLS=1",
+@@ -45,7 +45,7 @@
+     ],
+     "target_overrides": {
+         "*": {
+-            "target.features_remove": ["LWIP", "STORAGE"]
++            "target.features_remove": ["LWIP"]
+         }
+     }
+ }
