@@ -64,7 +64,7 @@
             "target.OUTPUT_EXT": "hex",
             "target.features_add": ["BOOTLOADER", "STORAGE"],
             "target.components_add": [
-                "SPIF",
+                "QSPIF",
                 "FLASHIAP"
             ],
             "target.features_remove": [
@@ -81,7 +81,7 @@
             "storage_filesystem.external_size"          : "(1024*1024*8)",
             "storage.storage_type"                      : "FILESYSTEM",
             "storage_filesystem.filesystem"             : "LITTLE",
-            "storage_filesystem.blockdevice"            : "SPIF",
+            "storage_filesystem.blockdevice"            : "QSPIF",
             "target.network-default-interface-type": "CELLULAR",
             "target.bootloader_img": "tools/mbed-bootloader.hex",
             "ppp-cell-iface.baud-rate"   : 57600,
