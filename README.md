@@ -18,21 +18,17 @@ The full documentation for this example is [available on our documentation site]
     ```
     mbed dm init -d "company.com" --model-name "product-model" -q --force
     ```
-4. Copy the bg96 cell config to `mbed_app.json`
-    ```
-    cp configs/cellular-bg96.json mbed_app.json
-    ```
-5.  Set the apn for your SIM card/operator in `mbed_app.json`:
+4.  Set the apn for your SIM card/operator in `mbed_app.json`:
     ```
     "nsapi.default-cellular-apn": "\"YOUR_APN\"",
     ```
-6. Apply Mbed OS patch to fix the QSPIF driver
+5. Apply Mbed OS patch to fix the QSPIF driver
     ```
     cd mbed-os
     git apply ../patches/qspif.patch
     cd ..
     ```
-7. Compile and program(-f):
+6. Compile and program(-f):
     ```
     mbed compile -t GCC_ARM -m NRF52840_DK -f
     ```
