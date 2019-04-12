@@ -28,6 +28,12 @@ The full documentation for this example is [available on our documentation site]
     git apply ../patches/qspif.patch
     cd ..
     ```
+5. Apply Mbed Cloud Client patch to fix the IAR compilation
+    ```
+    cd mbed-cloud-client
+    git apply ../patches/cloud_client.patch
+    cd ..
+	```
 6. Compile and program(-f):
     ```
     mbed compile -t GCC_ARM -m NRF52840_DK -f
