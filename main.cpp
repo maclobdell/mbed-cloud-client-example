@@ -20,6 +20,7 @@
 #include "simplem2mclient.h"
 #ifdef TARGET_LIKE_MBED
 #include "mbed.h"
+#include "mbedtls/platform.h"
 #endif
 #include "application_init.h"
 #include "mcc_common_button_and_led.h"
@@ -143,6 +144,12 @@ void main_application(void)
     // Initialize trace-library first
     if (application_init_mbed_trace() != 0) {
         printf("Failed initializing mbed trace\n" );
+        return;
+    }
+
+    // Initialize tls platform to enable Cryptocell HW TLS
+    if (mbedtls_platform_setup(NULL) != 0) {
+        printf("Failed mbedtls platform setup\n" );
         return;
     }
 

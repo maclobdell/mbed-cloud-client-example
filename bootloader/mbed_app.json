@@ -98,10 +98,10 @@
             "mbed-bootloader.application-start-address": "(MBED_ROM_START+65*1024)"
         },
         "NRF52840_DK": {
-            "target.components_add": ["FLASHIAP"],
             "target.features_add": ["STORAGE"],
             "target.components_add": [
-                "SPIF"
+                "QSPIF",
+                "FLASHIAP"
             ],
             "target.features_remove": [
                 "CRYPTOCELL310"
@@ -125,7 +125,7 @@
             "storage_filesystem.external_size"          : "(1024*1024*8)",
             "storage.storage_type"                      : "FILESYSTEM",
             "storage_filesystem.filesystem"             : "LITTLE",
-            "storage_filesystem.blockdevice"            : "SPIF"
+            "storage_filesystem.blockdevice"            : "QSPIF"
         }
     }
 }
