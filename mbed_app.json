@@ -62,7 +62,7 @@
             "nsapi.default-cellular-sim-pin": "\"1234\"",
             "nsapi.default-cellular-username": "\"streamip\"",
             "target.OUTPUT_EXT": "hex",
-            "target.features_add": ["BOOTLOADER", "STORAGE"],
+            "target.features_add": ["BOOTLOADER", "STORAGE", "BLE"],
             "target.components_add": [
                 "QSPIF",
                 "FLASHIAP"
@@ -76,7 +76,7 @@
                 "MBEDTLS_CONFIG_HW_SUPPORT"
             ],
             "target.extra_labels_remove": ["SOFTDEVICE_COMMON", "SOFTDEVICE_S140_FULL", "NORDIC_SOFTDEVICE"],
-            "target.extra_labels_add": ["SOFTDEVICE_NONE"],
+            "target.extra_labels_add": ["CORDIO", "CORDIO_LL", "SOFTDEVICE_NONE", "NORDIC_CORDIO"],
 
             "storage_filesystem.internal_base_address" : "(36*1024)",
             "storage_filesystem.rbp_internal_size"     : "(2*4*1024)",
