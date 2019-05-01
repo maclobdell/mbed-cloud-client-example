@@ -36,8 +36,9 @@ The full documentation for this example is [available on our documentation site]
 	```
 6. Compile and program(-f):
     ```
-    mbed compile -t GCC_ARM -m NRF52840_DK -f
+    mbed compile -t [compiler] -m NRF52840_DK -f
     ```
+    Where supported compiler options are: `GCC_ARM` or `IAR`. **Hint**: Make sure Mbed CLI is configured for your compiler. See instructions for that [here](https://os.mbed.com/docs/mbed-os/v5.12/tools/after-installation-configuring-mbed-cli.html).
 
 ### Bootloader
 

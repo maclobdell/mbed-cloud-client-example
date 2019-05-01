@@ -21,7 +21,7 @@
 
     ```
     git apply storage_add.patch
-    mbed compile -t GCC_ARM -m NRF52840_DK
+    mbed compile -t GCC_ARM -m NRF52840_DK --profile tiny.json
     cp ./BUILD/NRF52840_DK/GCC_ARM/mbed-bootloader.hex ~/mbed-cloud-client-example-bg96/tools/mbed-bootloader.hex
     ```
 
