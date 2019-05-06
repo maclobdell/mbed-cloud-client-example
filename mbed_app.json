@@ -60,7 +60,7 @@
             "lwip.ipv6-enabled": true,
             "lwip.mem-size": 22000,
             "lwip.ppp-enabled": true,
-            "lwip.tcp-enabled": true,
+            "lwip.tcp-enabled": false,
             "nsapi.default-cellular-apn": "\"stream.co.uk\"",
             "nsapi.default-cellular-password": "\"streamip\"",
             "nsapi.default-cellular-sim-pin": "\"1234\"",
