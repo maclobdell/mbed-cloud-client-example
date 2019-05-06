@@ -27,6 +27,10 @@
         "led-pinname"   : {
             "help"      : "PinName for led, which is attached to led blink resource.",
             "value"     : "LED1"
+        },
+        "bluetooth-name": {
+            "help"      : "Name of the bluetooth device",
+            "value"     : "\"SM Device\""
         }
     },
     "target_overrides": {
