@@ -45,6 +45,7 @@
             "platform.stdio-buffered-serial"            : true,
             "mbed-client.event-loop-size"               : 2048,
             "mbed-cloud-client.external-sst-support"    : true,
+            "mbed-cloud-client.disable-certificate-enrollment" : 1,
             "nanostack-hal.event_loop_thread_stack_size": 8192,
             "mbed-trace.enable"                         : false
         },
