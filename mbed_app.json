@@ -58,7 +58,7 @@
             "client_app.primary_partition_size": 1014784,
             "lwip.ethernet-enabled": false,
             "lwip.ipv4-enabled": true,
-            "lwip.ipv6-enabled": true,
+            "lwip.ipv6-enabled": false,
             "lwip.mem-size": 22000,
             "lwip.ppp-enabled": true,
             "lwip.tcp-enabled": false,
