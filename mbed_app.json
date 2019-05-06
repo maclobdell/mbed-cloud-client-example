@@ -49,7 +49,7 @@
             "mbed-trace.enable"                         : false
         },
         "NRF52840_DK": {
-            "client_app.pal-user-defined-configuration" : "\"pal_config_legacy_MbedOS.h\"",
+            "client_app.pal-user-defined-configuration" : "\"pal_config_MbedOS.h\"",
             
             "nordic.uart_0_fifo_size": 120,
             "nordic.uart_1_fifo_size": 120,
