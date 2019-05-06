@@ -61,7 +61,7 @@
             "lwip.ipv4-enabled": true,
             "lwip.ipv6-enabled": false,
             "lwip.mem-size": 22000,
-            "lwip.ppp-enabled": true,
+            "lwip.ppp-enabled": false,
             "lwip.tcp-enabled": false,
             "nsapi.default-cellular-apn": "\"stream.co.uk\"",
             "nsapi.default-cellular-password": "\"streamip\"",
