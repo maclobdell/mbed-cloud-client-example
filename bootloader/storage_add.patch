@@ -1,5 +1,5 @@
 diff --git a/mbed_lib.json b/mbed_lib.json
-index cbb9218..c400ceb 100644
+index cbb9218..3a5ab42 100644
 --- a/mbed_lib.json
 +++ b/mbed_lib.json
 @@ -36,7 +36,7 @@
@@ -7,7 +7,7 @@ index cbb9218..c400ceb 100644
          "MBED_FAULT_HANDLER_DISABLED",
          "MBEDTLS_USER_CONFIG_FILE=\"bootloader_mbedtls_user_config.h\"",
 -        "DEFAULT_MAX_APPLICATION_SIZE=(MBED_ROM_START + MBED_ROM_SIZE - MBED_CONF_MBED_BOOTLOADER_APPLICATION_START_ADDRESS)",
-+        "DEFAULT_MAX_APPLICATION_SIZE=((1024*1024) - (44*1024))",
++        "DEFAULT_MAX_APPLICATION_SIZE=((1024*1024) - (33*1024))",
          "ARM_UC_PROFILE_MBED_CLOUD_CLIENT=1",
          "ARM_UC_FEATURE_CRYPTO_PAL=0",
          "ARM_UC_FEATURE_CRYPTO_MBEDTLS=1",

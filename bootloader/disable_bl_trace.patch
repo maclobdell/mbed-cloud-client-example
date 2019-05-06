@@ -1,0 +1,48 @@
+diff --git a/source/bootloader_common.h b/source/bootloader_common.h
+index a67dfb9..c8117cc 100644
+--- a/source/bootloader_common.h
++++ b/source/bootloader_common.h
+@@ -78,32 +78,37 @@ void printProgress(uint32_t progress, uint32_t total);
+ #ifdef tr_info
+ #undef tr_info
+ #endif
+-#define tr_info(fmt, ...)    printf("[BOOT] " fmt "\r\n", ##__VA_ARGS__)
++//#define tr_info(fmt, ...)    printf("[BOOT] " fmt "\r\n", ##__VA_ARGS__)
++#define tr_info(...)
+ 
+ #ifdef tr_warning
+ #undef tr_warning
+ #endif
+-#define tr_warning(fmt, ...) printf("[WARN] " fmt "\r\n", ##__VA_ARGS__)
++//#define tr_warning(fmt, ...) printf("[WARN] " fmt "\r\n", ##__VA_ARGS__)
++#define tr_warning(...)
+ 
+ #ifdef tr_error
+ #undef tr_error
+ #endif
+-#define tr_error(fmt, ...)   printf("[ERR ] " fmt "\r\n", ##__VA_ARGS__)
++//#define tr_error(fmt, ...)   printf("[ERR ] " fmt "\r\n", ##__VA_ARGS__)
++#define tr_error(...)
+ 
+ #ifdef tr_trace
+ #undef tr_trace
+ #endif
+-#define tr_trace(fmt, ...)   printf(fmt, ##__VA_ARGS__)
++//#define tr_trace(fmt, ...)   printf(fmt, ##__VA_ARGS__)
++#define tr_trace(...)
+ 
+ #ifdef tr_flush
+ #undef tr_flush
+ #endif
+ // Disable flushing if mbed-printf is used, since mbed-printf is not buffered
+ #ifdef MBED_CONF_MINIMAL_PRINTF_ENABLE_FLOATING_POINT
+-#define tr_flush(x)
++//#define tr_flush(x)
+ #else
+-#define tr_flush(x)          fflush(stdout)
++//#define tr_flush(x)          fflush(stdout)
+ #endif
++#define tr_flush(...)
+ 
+ #endif
+ 

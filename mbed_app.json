@@ -54,7 +54,7 @@
             "nordic.uart_0_fifo_size": 120,
             "nordic.uart_1_fifo_size": 120,
             "cellular.debug-at": 0,
-            "client_app.primary_partition_size": 1048576,
+            "client_app.primary_partition_size": 1014784,
             "lwip.ethernet-enabled": false,
             "lwip.ipv4-enabled": true,
             "lwip.ipv6-enabled": true,
@@ -74,15 +74,15 @@
             "target.features_remove": [
                 "CRYPTOCELL310"
             ],
-            "target.header_offset": "0xB000",
-            "target.app_offset": "0xB400",
+            "target.header_offset": "0x8000",
+            "target.app_offset": "0x8400",
             "target.macros_remove": [
                 "MBEDTLS_CONFIG_HW_SUPPORT"
             ],
             "target.extra_labels_remove": ["SOFTDEVICE_COMMON", "SOFTDEVICE_S140_FULL", "NORDIC_SOFTDEVICE"],
             "target.extra_labels_add": ["CORDIO", "CORDIO_LL", "SOFTDEVICE_NONE", "NORDIC_CORDIO"],
 
-            "storage_filesystem.internal_base_address" : "(36*1024)",
+            "storage_filesystem.internal_base_address" : "(24*1024)",
             "storage_filesystem.rbp_internal_size"     : "(2*4*1024)",
             "storage_filesystem.external_base_address"  : "(0x0)",
             "storage_filesystem.external_size"          : "(1024*1024*8)",
@@ -90,19 +90,19 @@
             "storage_filesystem.filesystem"             : "LITTLE",
             "storage_filesystem.blockdevice"            : "QSPIF",
             "target.network-default-interface-type": "CELLULAR",
-            "target.bootloader_img": "tools/mbed-bootloader.hex",
+            "target.bootloader_img": "tools/mbed-bootloader_notrace_24K.hex",
             "ppp-cell-iface.baud-rate"   : 57600,
             "update-client.storage-address": "1024*1024*1",
             "update-client.storage-locations": 1,
             "update-client.storage-size": "1024*1024*1",
             "update-client.storage-page": 1,
             "flash-start-address"               : "0x00000000",
-            "client_app.sotp-section-1-address"            : "(MBED_CONF_APP_FLASH_START_ADDRESS+36*1024)",
+            "client_app.sotp-section-1-address"            : "(MBED_CONF_APP_FLASH_START_ADDRESS+24*1024)",
             "client_app.sotp-section-1-size"               : "(4*1024)",
-            "client_app.sotp-section-2-address"            : "(MBED_CONF_APP_FLASH_START_ADDRESS+40*1024)",
+            "client_app.sotp-section-2-address"            : "(MBED_CONF_APP_FLASH_START_ADDRESS+28*1024)",
             "client_app.sotp-section-2-size"               : "(4*1024)",
-            "update-client.application-details" : "(MBED_CONF_APP_FLASH_START_ADDRESS+44*1024)",
-            "application-start-address"         : "(MBED_CONF_APP_FLASH_START_ADDRESS+45*1024)"
+            "update-client.application-details" : "(MBED_CONF_APP_FLASH_START_ADDRESS+32*1024)",
+            "application-start-address"         : "(MBED_CONF_APP_FLASH_START_ADDRESS+33*1024)"
         }
     }
 }
