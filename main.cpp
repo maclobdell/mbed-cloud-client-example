@@ -123,10 +123,13 @@ void blink_callback(void *)
 
     // The pattern is something like 500:200:500, so parse that.
     // LED blinking is done while parsing.
+#ifndef MCC_MINIMAL
     const bool restart_pattern = false;
     if (blinky.start((char*)pattern_res->value(), pattern_res->value_length(), restart_pattern, blinky_completed) == false) {
         printf("out of memory error\n");
     }
+#endif
+    blink_res->send_delayed_post_response();
 }
 
 void notification_status_callback(const M2MBase& object,
@@ -223,6 +226,12 @@ void ble_sm() {
     }
 }
 
+#if defined(MBED_CONF_NANOSTACK_HAL_EVENT_LOOP_USE_MBED_EVENTS) && \
+ (MBED_CONF_NANOSTACK_HAL_EVENT_LOOP_USE_MBED_EVENTS == 1) && \
+ defined(MBED_CONF_EVENTS_SHARED_DISPATCH_FROM_APPLICATION) && \
+ (MBED_CONF_EVENTS_SHARED_DISPATCH_FROM_APPLICATION == 1)
+#include "nanostack-event-loop/eventOS_scheduler.h"
+#endif
 
 void main_application(void)
 {
@@ -324,11 +333,27 @@ void main_application(void)
 
     mbedClient.register_and_connect();
 
+#ifndef MCC_MINIMAL
+    blinky.init(mbedClient, button_res);
+    blinky.request_next_loop_event();
+#endif
+
 #ifndef MBED_CONF_MBED_CLOUD_CLIENT_DISABLE_CERTIFICATE_ENROLLMENT
     // Add certificate renewal callback
     mbedClient.get_cloud_client().on_certificate_renewal(certificate_renewal_cb);
 #endif // MBED_CONF_MBED_CLOUD_CLIENT_DISABLE_CERTIFICATE_ENROLLMENT
 
+#if defined(MBED_CONF_NANOSTACK_HAL_EVENT_LOOP_USE_MBED_EVENTS) && \
+ (MBED_CONF_NANOSTACK_HAL_EVENT_LOOP_USE_MBED_EVENTS == 1) && \
+ defined(MBED_CONF_EVENTS_SHARED_DISPATCH_FROM_APPLICATION) && \
+ (MBED_CONF_EVENTS_SHARED_DISPATCH_FROM_APPLICATION == 1)
+    printf("Starting mbed eventloop...\n");
+
+    eventOS_scheduler_mutex_wait();
+
+    EventQueue *queue = mbed::mbed_event_queue();
+    queue->dispatch_forever();
+#else
 
     // Check if client is registering or registered, if true sleep and repeat.
 
@@ -342,4 +367,5 @@ void main_application(void)
 
     // Client unregistered, disconnect and exit program.
     mcc_platform_close_connection();
+#endif
 }

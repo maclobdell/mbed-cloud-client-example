@@ -2,7 +2,9 @@
     "macros": [
         "ARM_UC_USE_PAL_BLOCKDEVICE=1",
         "MBED_CLOUD_CLIENT_UPDATE_STORAGE=ARM_UCP_FLASHIAP_BLOCKDEVICE",
-        "DISABLE_ERROR_DESCRIPTION"
+        "DISABLE_ERROR_DESCRIPTION",
+        "MCC_MEMORY",
+        "MCC_MINIMAL"
     ],
     "config": {
          "application-start-address": {
@@ -49,6 +51,10 @@
             "mbed-cloud-client.disable-certificate-enrollment" : 1,
             "nanostack-hal.event_loop_thread_stack_size": 8192,
             "mbed-trace.enable"                         : false,
+            "nanostack-hal.event-loop-use-mbed-events"  : true,
+            "nanostack-hal.event-loop-dispatch-from-application"    : false,
+            "nanostack-hal.critical-section-usable-from-interrupt"  : true,
+            "events.shared-dispatch-from-application"   : true,
             "rtos.main-thread-stack-size"               : 5120,
             "rtos.timer-thread-stack-size"              : 256,
             "rtos.idle-thread-stack-size"               : 256,
