@@ -22,12 +22,6 @@ The full documentation for this example is [available on our documentation site]
     ```
     "nsapi.default-cellular-apn": "\"YOUR_APN\"",
     ```
-5. Apply Mbed OS patch to fix the QSPIF driver
-    ```
-    cd mbed-os
-    git apply ../patches/qspif.patch
-    cd ..
-    ```
 5. Apply Mbed Cloud Client patch to fix the IAR compilation
     ```
     cd mbed-cloud-client
