@@ -21,6 +21,7 @@
 #ifdef TARGET_LIKE_MBED
 #include "mbed.h"
 #include "mbedtls/platform.h"
+#include "app_platform_setup.h"
 #endif
 #include "application_init.h"
 #include "mcc_common_button_and_led.h"
@@ -35,6 +36,9 @@
 #include <events/mbed_events.h>
 #include "ble/BLE.h"
 #include "SecurityManager.h"
+
+//user button for clearing credential storage on startup
+InterruptIn button(BUTTON1);
 
 /* for demonstration purposes we will store the peer device address
  * of the device that connects to us in the first demonstration
@@ -259,6 +263,16 @@ void main_application(void)
     if (mcc_platform_storage_init() != 0) {
         printf("Failed to initialize storage\n" );
         return;
+    }
+
+    // If the User button is pressed on start, then format credential storage.  This forces the device to bootstrap again and receive a new device ID from Pelion.
+    bool btn_pressed = (button.read() == 0);
+    if (btn_pressed) {
+        printf("User button is pushed on start...\n");
+        printf("FORMATTING CREDENTIAL STORAGE!\n");
+        if (mcc_platform_reset_storage() !=0) {
+            printf("FAILED TO FORMAT STORAGE!\n" );
+        }
     }
 
     // Initialize platform-specific components
