@@ -60,7 +60,8 @@
             "rtos.idle-thread-stack-size"               : 256,
             "events.shared-stacksize"                   : 2048,
             "events.shared-eventsize"                   : 1536,
-            "mbed-client.sn-coap-max-blockwise-payload-size" : 256
+            "mbed-client.sn-coap-max-blockwise-payload-size" : 256,
+            "mbed-client-pal.pal-max-frag-len"          : 1
         },
         "NRF52840_DK": {
             "client_app.pal-user-defined-configuration" : "\"pal_config_MbedOS.h\"",
@@ -74,7 +75,7 @@
             "lwip.ipv6-enabled": false,
             "lwip.mem-size": 22000,
             "lwip.ppp-enabled": false,
-            "lwip.tcp-enabled": false,
+            "lwip.tcp-enabled": true,
             "nsapi.default-cellular-apn": "\"stream.co.uk\"",
             "nsapi.default-cellular-password": "\"streamip\"",
             "nsapi.default-cellular-sim-pin": "\"1234\"",
