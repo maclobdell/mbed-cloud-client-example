@@ -322,6 +322,11 @@ void main_application(void)
     SimpleM2MClient mbedClient;
 
     osStatus err = blethread.start(callback(ble_sm));
+    if (err != osOK) {
+        printf("ERROR: failed to start BLE thread: %ld\n", err);
+        return;
+    }
+
     // application_init() runs the following initializations:
     //  1. platform initialization
     //  2. print memory statistics if MBED_HEAP_STATS_ENABLED is defined
