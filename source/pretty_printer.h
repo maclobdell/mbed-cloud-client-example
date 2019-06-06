@@ -24,6 +24,9 @@ inline void print_error(ble_error_t error, const char *msg)
         case BLE_ERROR_NONE:
             printf("BLE_ERROR_NONE: No error");
             break;
+        case BLE_ERROR_NOT_FOUND:
+            printf("BLE_ERROR_NOT_FOUND: Data not found or there is nothing to return.");
+            break;
         case BLE_ERROR_BUFFER_OVERFLOW:
             printf("BLE_ERROR_BUFFER_OVERFLOW: The requested action would "
                    "cause a buffer overflow and has been aborted");
