@@ -16,14 +16,13 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------
 
-
 #include "mbed-trace/mbed_trace.h"
 #include "mbed-trace-helper.h"
 #include "factory_configurator_client.h"
 #include "app_platform_setup.h"
 #include "mcc_common_setup.h"
 #include "mcc_common_button_and_led.h"
-#if defined (MBED_HEAP_STATS_ENABLED) || (MBED_STACK_STATS_ENABLED)
+#if defined(MBED_HEAP_STATS_ENABLED) || (MBED_STACK_STATS_ENABLED)
 #include "memory_tests.h"
 #endif
 #include "application_init.h"
@@ -33,10 +32,10 @@ void print_fcc_status(int fcc_status)
 #ifndef MCC_MINIMAL
 #ifndef DISABLE_ERROR_DESCRIPTION
     const char *error;
-    switch(fcc_status) {
+    switch (fcc_status) {
         case FCC_STATUS_SUCCESS:
             return;
-        case FCC_STATUS_ERROR :
+        case FCC_STATUS_ERROR:
             error = "Operation ended with an unspecified error.";
             break;
         case FCC_STATUS_MEMORY_OUT:
@@ -52,7 +51,8 @@ void print_fcc_status(int fcc_status)
             error = "Current item already exists in storage.";
             break;
         case FCC_STATUS_CA_ERROR:
-            error = "CA Certificate already exist in storage (currently only bootstrap CA)";
+            error = "CA Certificate already exist in storage (currently only "
+                    "bootstrap CA)";
             break;
         case FCC_STATUS_ROT_ERROR:
             error = "ROT already exist in storage";
@@ -82,13 +82,15 @@ void print_fcc_status(int fcc_status)
             error = "KCM basic functionality failed.";
             break;
         case FCC_STATUS_KCM_STORAGE_ERROR:
-            error = "KCM failed to read, write or get size of item from/to storage.";
+            error = "KCM failed to read, write or get size of item from/to "
+                    "storage.";
             break;
         case FCC_STATUS_KCM_FILE_EXIST_ERROR:
             error = "KCM tried to create existing storage item.";
             break;
         case FCC_STATUS_KCM_CRYPTO_ERROR:
-            error = "KCM returned error upon cryptographic check of an certificate or key.";
+            error = "KCM returned error upon cryptographic check of an "
+                    "certificate or key.";
             break;
         case FCC_STATUS_NOT_INITIALIZED:
             error = "FCC failed or did not initialized.";
@@ -100,13 +102,15 @@ void print_fcc_status(int fcc_status)
             error = "Protocol layer failed to create response buffer.";
             break;
         case FCC_STATUS_BUNDLE_UNSUPPORTED_GROUP:
-            error = "Protocol layer detected unsupported group was found in a message.";
+            error = "Protocol layer detected unsupported group was found in a "
+                    "message.";
             break;
         case FCC_STATUS_BUNDLE_INVALID_GROUP:
             error = "Protocol layer detected invalid group in a message.";
             break;
         case FCC_STATUS_BUNDLE_INVALID_SCHEME:
-            error = "The scheme version of a message in the protocol layer is wrong.";
+            error = "The scheme version of a message in the protocol layer is "
+                    "wrong.";
             break;
         case FCC_STATUS_ITEM_NOT_EXIST:
             error = "Current item wasn't found in the storage";
@@ -121,7 +125,8 @@ void print_fcc_status(int fcc_status)
             error = "Current URI is different than expected.";
             break;
         case FCC_STATUS_FIRST_TO_CLAIM_NOT_ALLOWED:
-            error = "Can't use first to claim without bootstrap or with account ID";
+            error =
+                "Can't use first to claim without bootstrap or with account ID";
             break;
         case FCC_STATUS_BOOTSTRAP_MODE_ERROR:
             error = "Wrong value of bootstrapUse mode.";
@@ -136,7 +141,8 @@ void print_fcc_status(int fcc_status)
             error = "Current UTC is wrong.";
             break;
         case FCC_STATUS_CERTIFICATE_PUBLIC_KEY_CORRELATION_ERROR:
-            error = "Certificate's public key failed do not matches to corresponding private key";
+            error = "Certificate's public key failed do not matches to "
+                    "corresponding private key";
             break;
         case FCC_STATUS_BUNDLE_INVALID_KEEP_ALIVE_SESSION_STATUS:
             error = "The message status is invalid.";
@@ -150,8 +156,7 @@ void print_fcc_status(int fcc_status)
 }
 
 #if defined(__SXOS__)
-extern "C"
-void trace_printer(const char* str)
+extern "C" void trace_printer(const char *str)
 {
     printf("%s\r\n", str);
 }
@@ -161,13 +166,13 @@ bool application_init_mbed_trace(void)
 {
 #ifndef MCC_MINIMAL
     // Create mutex for tracing to avoid broken lines in logs
-    if(!mbed_trace_helper_create_mutex()) {
+    if (!mbed_trace_helper_create_mutex()) {
         printf("ERROR - Mutex creation for mbed_trace failed!\n");
         return 1;
     }
 #endif
     // Initialize mbed trace
-    (void) mbed_trace_init();
+    (void)mbed_trace_init();
 #ifndef MCC_MINIMAL
     mbed_trace_mutex_wait_function_set(mbed_trace_helper_mutex_wait);
     mbed_trace_mutex_release_function_set(mbed_trace_helper_mutex_release);
@@ -198,7 +203,8 @@ static bool application_init_verify_cloud_configuration()
 #ifndef MCC_MINIMAL
     status = fcc_verify_device_configured_4mbed_cloud();
     print_fcc_status(status);
-    if (status != FCC_STATUS_SUCCESS && status != FCC_STATUS_EXPIRED_CERTIFICATE) {
+    if (status != FCC_STATUS_SUCCESS &&
+        status != FCC_STATUS_EXPIRED_CERTIFICATE) {
         result = 1;
     }
 #endif
@@ -211,20 +217,24 @@ static bool application_init_fcc(void)
     print_stack_statistics();
 #endif
     int status = mcc_platform_fcc_init();
-    if(status != FCC_STATUS_SUCCESS) {
-        printf("application_init_fcc fcc_init failed with status %d! - exit\n", status);
+    if (status != FCC_STATUS_SUCCESS) {
+        printf("application_init_fcc fcc_init failed with status %d! - exit\n",
+               status);
         return 1;
     }
 #if RESET_STORAGE
     status = mcc_platform_reset_storage();
-    if(status != FCC_STATUS_SUCCESS) {
-        printf("application_init_fcc reset_storage failed with status %d! - exit\n", status);
+    if (status != FCC_STATUS_SUCCESS) {
+        printf("application_init_fcc reset_storage failed with status %d! - "
+               "exit\n",
+               status);
         return 1;
     }
     // Reinitialize SOTP
     status = mcc_platform_sotp_init();
     if (status != FCC_STATUS_SUCCESS) {
-        printf("application_init_fcc sotp_init failed with status %d! - exit\n", status);
+        printf("application_init_fcc sotp_init failed with status %d! - exit\n",
+               status);
         return 1;
     }
 #endif
@@ -232,9 +242,9 @@ static bool application_init_fcc(void)
     status = application_init_verify_cloud_configuration();
     if (status != 0) {
 #ifndef MCC_MINIMAL
-    // This is designed to simplify user-experience by auto-formatting the
-    // primary storage if no valid certificates exist.
-    // This should never be used for any kind of production devices.
+        // This is designed to simplify user-experience by auto-formatting the
+        // primary storage if no valid certificates exist.
+        // This should never be used for any kind of production devices.
 #ifndef MBED_CONF_APP_MCC_NO_AUTO_FORMAT
 #ifndef MBED_CONF_MBED_CLOUD_CLIENT_EXTERNAL_SST_SUPPORT
         printf("Certificate validation failed, trying autorecovery...\n");
@@ -253,7 +263,7 @@ static bool application_init_fcc(void)
         status = application_init_verify_cloud_configuration();
         if (status != 0) {
             return 1;
-        }        
+        }
 #else
         return 1;
 #endif
@@ -264,13 +274,13 @@ static bool application_init_fcc(void)
 
 bool application_init(void)
 {
-    if(mcc_platform_init_button_and_led() != 0) {
-       printf("ERROR - initButtonAndLed() failed!\n");
-       return false;
+    if (mcc_platform_init_button_and_led() != 0) {
+        printf("ERROR - initButtonAndLed() failed!\n");
+        return false;
     }
 
-    // Print some statistics of current heap memory consumption, useful for finding
-    // out where the memory goes.
+    // Print some statistics of current heap memory consumption, useful for
+    // finding out where the memory goes.
 #ifdef MBED_HEAP_STATS_ENABLED
     print_heap_stats();
 #endif
@@ -281,7 +291,7 @@ bool application_init(void)
     printf("Start Device Management Client\n");
 
     if (application_init_fcc() != 0) {
-        printf("Failed initializing FCC\n" );
+        printf("Failed initializing FCC\n");
         return false;
     }
 

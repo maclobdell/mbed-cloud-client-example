@@ -25,4 +25,4 @@
 
 #include "Linux_default.h"
 
-#endif //PAL_HEADER_SOTP_FS_LINUX
+#endif // PAL_HEADER_SOTP_FS_LINUX

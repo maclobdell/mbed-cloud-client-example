@@ -29,17 +29,18 @@
  * a change in link security. */
 class SMDevicePeripheral : public SMDevice {
 public:
-    SMDevicePeripheral(BLE &ble, events::EventQueue &event_queue, BLEProtocol::AddressBytes_t &peer_address)
-        : SMDevice(ble, event_queue, peer_address) { }
+    SMDevicePeripheral(BLE &ble, events::EventQueue &event_queue,
+                       BLEProtocol::AddressBytes_t &peer_address)
+        : SMDevice(ble, event_queue, peer_address)
+    {
+    }
 
     virtual void start()
     {
         /* Set up and start advertising */
         uint8_t adv_buffer[ble::LEGACY_ADVERTISING_MAX_SIZE];
         /* use the helper to build the payload */
-        ble::AdvertisingDataBuilder adv_data_builder(
-            adv_buffer
-        );
+        ble::AdvertisingDataBuilder adv_data_builder(adv_buffer);
 
         adv_data_builder.setFlags();
         adv_data_builder.setName(MBED_CONF_APP_BLUETOOTH_NAME);
@@ -47,8 +48,7 @@ public:
         /* Set payload for the set */
         ble_error_t error = _ble.gap().setAdvertisingPayload(
             ble::LEGACY_ADVERTISING_HANDLE,
-            adv_data_builder.getAdvertisingData()
-        );
+            adv_data_builder.getAdvertisingData());
 
         if (error) {
             print_error(error, "Gap::setAdvertisingPayload() failed");
@@ -57,13 +57,10 @@ public:
         }
 
         ble::AdvertisingParameters adv_parameters(
-            ble::advertising_type_t::CONNECTABLE_UNDIRECTED
-        );
+            ble::advertising_type_t::CONNECTABLE_UNDIRECTED);
 
         error = _ble.gap().setAdvertisingParameters(
-            ble::LEGACY_ADVERTISING_HANDLE,
-            adv_parameters
-        );
+            ble::LEGACY_ADVERTISING_HANDLE, adv_parameters);
 
         if (error) {
             print_error(error, "Gap::setAdvertisingParameters() failed");
@@ -94,7 +91,8 @@ public:
 
         /* remember the device that connects to us now so we can connect to it
          * during the next demonstration */
-        memcpy(_peer_address, event.getPeerAddress().data(), sizeof(_peer_address));
+        memcpy(_peer_address, event.getPeerAddress().data(),
+               sizeof(_peer_address));
 
         printf("Connected to peer: ");
         print_address(event.getPeerAddress().data());
@@ -107,9 +105,7 @@ public:
          * may be taken by the master which will trigger events
          * which the applications should deal with. */
         error = _ble.securityManager().setLinkSecurity(
-            _handle,
-            SecurityManager::SECURITY_MODE_ENCRYPTION_NO_MITM
-        );
+            _handle, SecurityManager::SECURITY_MODE_ENCRYPTION_NO_MITM);
 
         if (error) {
             printf("Error during SM::setLinkSecurity %d\r\n", error);

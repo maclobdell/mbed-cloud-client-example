@@ -28,4 +28,4 @@
 
 #include "mbedOS_default.h"
 
-#endif //PAL_CONFIG_LEGACY_NON_TRNG_MBEDOS
+#endif // PAL_CONFIG_LEGACY_NON_TRNG_MBEDOS

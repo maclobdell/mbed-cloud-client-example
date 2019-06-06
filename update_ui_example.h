@@ -40,8 +40,7 @@ void update_progress(uint32_t progress, uint32_t total);
  * @brief Set the cloud client instance for the update UI to use
  * @param[in] client pointer to the cloud client instance
  */
-void update_ui_set_cloud_client(MbedCloudClient* client);
-
+void update_ui_set_cloud_client(MbedCloudClient *client);
 
 #endif // MBED_CLOUD_CLIENT_SUPPORT_UPDATE
 

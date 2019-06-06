@@ -16,7 +16,6 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------
 
-
 #ifndef APPLICATION_INIT_H
 #define APPLICATION_INIT_H
 
@@ -40,5 +39,4 @@ bool application_init(void);
  */
 void print_fcc_status(int fcc_status);
 
-#endif //APPLICATION_INIT_H
-
+#endif // APPLICATION_INIT_H

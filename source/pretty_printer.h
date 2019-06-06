@@ -17,24 +17,28 @@
 #include <mbed.h>
 #include "ble/BLE.h"
 
-inline void print_error(ble_error_t error, const char* msg)
+inline void print_error(ble_error_t error, const char *msg)
 {
     printf("%s: ", msg);
-    switch(error) {
+    switch (error) {
         case BLE_ERROR_NONE:
             printf("BLE_ERROR_NONE: No error");
             break;
         case BLE_ERROR_BUFFER_OVERFLOW:
-            printf("BLE_ERROR_BUFFER_OVERFLOW: The requested action would cause a buffer overflow and has been aborted");
+            printf("BLE_ERROR_BUFFER_OVERFLOW: The requested action would "
+                   "cause a buffer overflow and has been aborted");
             break;
         case BLE_ERROR_NOT_IMPLEMENTED:
-            printf("BLE_ERROR_NOT_IMPLEMENTED: Requested a feature that isn't yet implement or isn't supported by the target HW");
+            printf("BLE_ERROR_NOT_IMPLEMENTED: Requested a feature that isn't "
+                   "yet implement or isn't supported by the target HW");
             break;
         case BLE_ERROR_PARAM_OUT_OF_RANGE:
-            printf("BLE_ERROR_PARAM_OUT_OF_RANGE: One of the supplied parameters is outside the valid range");
+            printf("BLE_ERROR_PARAM_OUT_OF_RANGE: One of the supplied "
+                   "parameters is outside the valid range");
             break;
         case BLE_ERROR_INVALID_PARAM:
-            printf("BLE_ERROR_INVALID_PARAM: One of the supplied parameters is invalid");
+            printf("BLE_ERROR_INVALID_PARAM: One of the supplied parameters is "
+                   "invalid");
             break;
         case BLE_STACK_BUSY:
             printf("BLE_STACK_BUSY: The stack is busy");
@@ -67,8 +71,8 @@ inline void print_error(ble_error_t error, const char* msg)
 /** print device address to the terminal */
 void print_address(const uint8_t *addr)
 {
-    printf("%02x:%02x:%02x:%02x:%02x:%02x\r\n",
-           addr[5], addr[4], addr[3], addr[2], addr[1], addr[0]);
+    printf("%02x:%02x:%02x:%02x:%02x:%02x\r\n", addr[5], addr[4], addr[3],
+           addr[2], addr[1], addr[0]);
 }
 
 inline void print_mac_address()
@@ -81,8 +85,9 @@ inline void print_mac_address()
     print_address(address);
 }
 
-inline const char* phy_to_string(Gap::Phy_t phy) {
-    switch(phy.value()) {
+inline const char *phy_to_string(Gap::Phy_t phy)
+{
+    switch (phy.value()) {
         case Gap::Phy_t::LE_1M:
             return "LE 1M";
         case Gap::Phy_t::LE_2M:

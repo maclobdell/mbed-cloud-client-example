@@ -24,8 +24,6 @@
 #define PAL_USE_INTERNAL_FLASH 0
 #define PAL_USE_SECURE_TIME 1
 
-
 #include "mbedOS_SST.h"
 
-
-#endif //PAL_CONFIG_NON_TRNG_MBEDOS
+#endif // PAL_CONFIG_NON_TRNG_MBEDOS

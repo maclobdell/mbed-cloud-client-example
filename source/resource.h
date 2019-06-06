@@ -16,10 +16,8 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------
 
-
 #ifndef RESOURCE_H
 #define RESOURCE_H
-
 
 /**
  * \brief Helper function for creating different kind of resources.
@@ -49,16 +47,11 @@
  *              at the same time.
  * \param message_status_cb Function pointer to message_status_cb
  */
-M2MResource* add_resource(M2MObjectList *list,
-                          uint16_t object_id,
-                          uint16_t instance_id,
-                          uint16_t resource_id,
+M2MResource *add_resource(M2MObjectList *list, uint16_t object_id,
+                          uint16_t instance_id, uint16_t resource_id,
                           const char *resource_type,
                           M2MResourceInstance::ResourceType data_type,
-                          M2MBase::Operation allowed,
-                          const char *value,
-                          bool observable,
-                          void *cb,
-                          void *message_status_cb);
+                          M2MBase::Operation allowed, const char *value,
+                          bool observable, void *cb, void *message_status_cb);
 
-#endif //RESOURCE_H
+#endif // RESOURCE_H

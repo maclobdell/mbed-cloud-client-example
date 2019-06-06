@@ -23,19 +23,18 @@
 #include <stdio.h>
 #include <stdint.h>
 
-static MbedCloudClient* _client;
+static MbedCloudClient *_client;
 
-void update_ui_set_cloud_client(MbedCloudClient* client)
+void update_ui_set_cloud_client(MbedCloudClient *client)
 {
     _client = client;
 }
 
 void update_authorize(int32_t request)
 {
-    switch (request)
-    {
-        /* Cloud Client wishes to download new firmware. This can have a negative
-           impact on the performance of the rest of the system.
+    switch (request) {
+        /* Cloud Client wishes to download new firmware. This can have a
+           negative impact on the performance of the rest of the system.
 
            The user application is supposed to pause performance sensitive tasks
            before authorizing the download.
@@ -51,7 +50,8 @@ void update_authorize(int32_t request)
 
         /* Cloud Client wishes to reboot and apply the new firmware.
 
-           The user application is supposed to save all current work before rebooting.
+           The user application is supposed to save all current work before
+           rebooting.
 
            Note: the authorization call can be postponed and called later.
            This doesn't affect the performance of the Cloud Client.
@@ -73,34 +73,25 @@ void update_progress(uint32_t progress, uint32_t total)
     uint8_t percent = (uint8_t)((uint64_t)progress * 100 / total);
 
 /* only show progress bar if debug trace is disabled */
-#if !defined(MBED_CONF_MBED_TRACE_ENABLE) \
-    && !ARM_UC_ALL_TRACE_ENABLE \
-    && !ARM_UC_HUB_TRACE_ENABLE
+#if !defined(MBED_CONF_MBED_TRACE_ENABLE) && !ARM_UC_ALL_TRACE_ENABLE &&       \
+    !ARM_UC_HUB_TRACE_ENABLE
 
     printf("\rDownloading: [");
-    for (uint8_t index = 0; index < 50; index++)
-    {
-        if (index < percent / 2)
-        {
+    for (uint8_t index = 0; index < 50; index++) {
+        if (index < percent / 2) {
             printf("+");
-        }
-        else if (index == percent / 2)
-        {
+        } else if (index == percent / 2) {
             static uint8_t old_max = 0;
             static uint8_t counter = 0;
 
-            if (index == old_max)
-            {
+            if (index == old_max) {
                 counter++;
-            }
-            else
-            {
+            } else {
                 old_max = index;
                 counter = 0;
             }
 
-            switch (counter % 4)
-            {
+            switch (counter % 4) {
                 case 0:
                     printf("/");
                     break;
@@ -115,9 +106,7 @@ void update_progress(uint32_t progress, uint32_t total)
                     printf("|");
                     break;
             }
-        }
-        else
-        {
+        } else {
             printf(" ");
         }
     }
@@ -127,8 +116,7 @@ void update_progress(uint32_t progress, uint32_t total)
     printf("Downloading: %d %%\r\n", percent);
 #endif
 
-    if (progress == total)
-    {
+    if (progress == total) {
         printf("\r\nDownload completed\r\n");
     }
 }

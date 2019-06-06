@@ -27,4 +27,4 @@
 
 #include "Linux_default.h"
 
-#endif //PAL_HEADER_SOTP_FS_ARIA_LINUX
+#endif // PAL_HEADER_SOTP_FS_ARIA_LINUX

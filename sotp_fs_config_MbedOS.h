@@ -26,4 +26,4 @@
 
 #include "mbedOS_default.h"
 
-#endif //PAL_HEADER_SOTP_FS
+#endif // PAL_HEADER_SOTP_FS

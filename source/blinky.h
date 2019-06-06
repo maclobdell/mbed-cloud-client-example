@@ -26,8 +26,7 @@ class M2MResource;
 
 #include <stdint.h>
 
-class Blinky
-{
+class Blinky {
     typedef enum {
         STATE_IDLE,
         STATE_STARTED,
@@ -40,7 +39,7 @@ public:
 
     void init(SimpleM2MClient &client, M2MResource *resource);
 
-    bool start(const char* pattern, size_t length, bool pattern_restart);
+    bool start(const char *pattern, size_t length, bool pattern_restart);
 
     void stop();
 
@@ -53,7 +52,9 @@ public:
 private:
     void create_tasklet();
     void handle_pattern_event();
-    bool request_timed_event(uint8_t event_type, arm_library_event_priority_e priority, int32_t delay);
+    bool request_timed_event(uint8_t event_type,
+                             arm_library_event_priority_e priority,
+                             int32_t delay);
 
     void handle_buttons();
 
@@ -62,21 +63,19 @@ private:
     bool run_step();
 
 private:
-
     char *_pattern;
     const char *_curr_pattern;
 
     SimpleM2MClient *_client;
 
-    M2MResource     *_button_resource;
+    M2MResource *_button_resource;
 
-    int              _button_count;
+    int _button_count;
 
     BlinkyState _state;
 
     bool _restart;
 
     static int8_t _tasklet;
-
 };
 #endif /* __BLINKY_H__ */

@@ -29,10 +29,10 @@
 extern "C" {
 #endif
 
-void certificate_renewal_cb(const char *cert_name, ce_status_e status, ce_initiator_e initiator);
+void certificate_renewal_cb(const char *cert_name, ce_status_e status,
+                            ce_initiator_e initiator);
 
 #ifdef __cplusplus
 }
 #endif
 #endif // CERTIFICATE_ENROLLMENT_USER_CB_H
-
