@@ -64,6 +64,7 @@
             "mbed-client-pal.pal-max-frag-len"          : 1
         },
         "NRF52840_DK": {
+            "cordio-ll-nrf52840.cryptocell310-acceleration": 0,
             "client_app.pal-user-defined-configuration" : "\"pal_config_MbedOS.h\"",
             
             "nordic.uart_0_fifo_size": 120,
