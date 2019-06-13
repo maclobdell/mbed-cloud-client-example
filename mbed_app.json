@@ -115,7 +115,50 @@
             "update-client.storage-page": 1,
             "flash-start-address"               : "0x00000000",
             "update-client.application-details" : "(MBED_CONF_APP_FLASH_START_ADDRESS+32*1024)",
-            "application-start-address"         : "(MBED_CONF_APP_FLASH_START_ADDRESS+33*1024)"
+            "application-start-address"         : "(MBED_CONF_APP_FLASH_START_ADDRESS+33*1024)",
+
+            "ble.ble-role-observer": true,
+            "ble.ble-role-broadcaster": true,
+            "ble.ble-role-central": true,
+            "ble.ble-role-peripheral": true,
+            "ble.ble-feature-gatt-client": true,
+            "ble.ble-feature-gatt-server": true,
+            "ble.ble-feature-security": true,
+            "ble.ble-feature-secure-connections": true,
+            "ble.ble-feature-signing" : true,
+            "ble.ble-feature-whitelist" : true,
+            "ble.ble-feature-privacy": true,
+            "ble.ble-feature-phy-management" : true,
+            "ble.ble-feature-extended-advertising": true,
+            "ble.ble-feature-periodic-advertising": true,
+
+            "cordio.max-connections": 3,
+            "cordio.max-syncs": 1,
+            "cordio.max-advertising-sets": 3,
+            "cordio.max-phys": 3,
+            "cordio.max-l2cap-channels": 1,
+            "cordio.max-l2cap-clients": 1,
+            "cordio.max-att-writes": 1,
+            "cordio.max-att-notifications": 1,
+            "cordio.max-smp-devices": 3,
+            "cordio.desired-att-mtu": 23,
+            "cordio.rx-acl-buffer-size": 70,
+            "cordio.max-prepared-writes": 4,
+            "cordio.cmac-calculation": 1,
+
+            "cordio-ll.max-advertising-sets": 3,
+            "cordio-ll.max-advertising-reports": 4,
+            "cordio-ll.default-extended-advertising-fragmentation-size": 64,
+            "cordio-ll.max-scan-request-events": 4,
+            "cordio-ll.phy-2m-support": 1,
+            "cordio-ll.rx-buffers": 4,
+            "cordio-ll.phy-coded-support": 1,
+            "cordio-ll.extended-advertising-size": 251,
+            "cordio-ll.max-acl-size": 256,
+            "cordio-ll.tx-buffers": 4,
+            "cordio-ll.handle-vendor-specific-hci-commands": 0,
+            "cordio-ll.uart-hci": 0
+        
         }
     }
 }
