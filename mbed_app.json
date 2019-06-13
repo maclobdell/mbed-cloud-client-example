@@ -69,6 +69,8 @@
             "nordic.uart_0_fifo_size": 120,
             "nordic.uart_1_fifo_size": 120,
             "cellular.debug-at": 0,
+            "cellular.use-apn-lookup": false,
+            "ppp-cell-iface.apn-lookup": false,
             "client_app.primary_partition_size": 1014784,
             "lwip.ethernet-enabled": false,
             "lwip.ipv4-enabled": true,
