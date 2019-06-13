@@ -36,7 +36,7 @@
 #else
 #define SN_COAP_MAX_BLOCKWISE_PAYLOAD_SIZE 1024
 #endif
-#define MBED_CLOUD_CLIENT_TRANSPORT_MODE_TCP
+#define MBED_CLOUD_CLIENT_TRANSPORT_MODE_UDP_QUEUE
 #endif
 
 /* set flag to enable update support in Pelion Device Management Client */
