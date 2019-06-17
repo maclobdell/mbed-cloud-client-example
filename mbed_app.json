@@ -132,7 +132,7 @@
             "ble.ble-feature-extended-advertising": true,
             "ble.ble-feature-periodic-advertising": true,
 
-            "cordio.max-connections": 3,
+            "cordio.max-connections": 8,
             "cordio.max-syncs": 1,
             "cordio.max-advertising-sets": 3,
             "cordio.max-phys": 3,
