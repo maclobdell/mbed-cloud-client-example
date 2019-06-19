@@ -22,10 +22,10 @@ The full documentation for this example is [available on our documentation site]
     ```
     "nsapi.default-cellular-apn": "\"YOUR_APN\"",
     ```
-5. Apply Mbed Cloud Client patch to fix the IAR compilation
+5. Apply the necessary patches:
     ```
-    cd mbed-cloud-client
-    git apply ../patches/cloud_client.patch
+    cd mbed-os
+    git apply ../patches/0001-fix-compile-errors-mbed-os-5.13.0-rc3.patch
     cd ..
 	```
 6. Compile and program(-f):
