@@ -131,7 +131,7 @@ void blink_callback(void *)
 #ifndef MCC_MINIMAL
     const bool restart_pattern = false;
     if (blinky.start((char *)pattern_res->value(), pattern_res->value_length(),
-                     restart_pattern, blinky_completed) == false) {
+                     restart_pattern) == false) {
         printf("out of memory error\n");
     }
 #endif
@@ -353,6 +353,7 @@ void main_application(void)
         3200, 0, 5501, "button_resource", M2MResourceInstance::INTEGER,
         M2MBase::GET_ALLOWED, 0, true, NULL,
         (void *)notification_status_callback);
+    button_res->set_value(0);
 
     // Create resource for led blinking pattern. Path of this resource will be:
     // 3201/0/5853.
