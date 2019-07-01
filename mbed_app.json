@@ -1,7 +1,8 @@
 {
     "macros": [
         "MBED_BOOTLOADER_SIZE=(32*1024)",
-        "ARM_UC_USE_PAL_BLOCKDEVICE=1"
+        "ARM_UC_USE_PAL_BLOCKDEVICE=1",
+		"MBEDTLS_PSA_CRYPTO_C"
     ],
     "target_overrides": {
         "*": {
@@ -31,6 +32,31 @@
             "lwip.pbuf-pool-size"                       : 16,
             "lwip.mem-size"                             : 12500
         },
+        "CY8CPROTO_062_4343W": {
+		    "mbed-trace.enable"                         : 1,		
+            "target.features_remove"                    : ["BLE"],
+            "target.extra_labels_remove"                : [ "CORDIO" ],				
+            "client_app.mbedtls-user-config-file"       : "\"mbedTLSConfig_mbedOS.h\"",
+            "client_app.pal-user-defined-configuration" : "\"pal_config_MbedOS.h\"",			
+            "target.extra_labels_add"                   : [ "PSA" ],
+  		    "target.bootloader_supported"               : true,
+            "target.network-default-interface-type"     : "WIFI",
+            "target.bootloader_img"                     : "tools/mbed-bootloader-cy8cproto_062_4343W.hex",
+            "target.header_offset"                      : "0xD000",
+            "target.app_offset"                         : "0xD400",
+            "update-client.bootloader-details"          : "0x10009188",
+            "update-client.application-details"         : "0x1000F000",
+            "update-client.storage-address"             : "(1024*1024*64)",
+            "update-client.storage-size"                : "((MBED_ROM_START + MBED_ROM_SIZE - 48*1024) * MBED_CONF_UPDATE_CLIENT_STORAGE_LOCATIONS)",
+            "mbed-cloud-client.update-storage"          : "ARM_UCP_FLASHIAP_BLOCKDEVICE",
+            "storage_filesystem.internal_base_address"  : "0x1000D000",
+            "storage_filesystem.rbp_internal_size"      : "(2*4*1024)",
+            "storage_filesystem.external_base_address"  : "(0x0)",
+            "storage_filesystem.external_size"          : "(1024*1024*64)",
+            "storage.storage_type"                      : "FILESYSTEM",
+            "storage_filesystem.filesystem"             : "LITTLE",
+            "storage_filesystem.blockdevice"            : "QSPIF"
+        },				
         "K64F": {
             "target.network-default-interface-type"     : "ETHERNET",
             "target.bootloader_img"                     : "tools/mbed-bootloader-k64f-block_device-kvstore-v4.0.0.bin",
