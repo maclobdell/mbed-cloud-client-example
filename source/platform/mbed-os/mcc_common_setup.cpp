@@ -77,21 +77,35 @@ int mcc_platform_init_connection(void) {
 #define MCC_PLATFORM_CONNECTION_RETRY_TIMEOUT 1000
 #endif
     printf("mcc_platform_init_connection()\n");
+	
+	wait_ms(5000);
+	
     network_interface = NetworkInterface::get_default_instance();
+		
     if(network_interface == NULL) {
         printf("ERROR: No NetworkInterface found!\n");
         return -1;
     }
+    printf("got default network interface\n");
+	wait_ms(1000);
 
     network_interface->add_event_listener(mbed::callback(&network_status_callback));
     printf("Connecting with interface: %s\n", network_type(NetworkInterface::get_default_instance()));
+
+    wait_ms(1000);
+
 #ifdef MCC_USE_MBED_EVENTS
     interface_connected = false;
     network_interface->set_blocking(false);
 
+	wait_ms(1000);
+    printf("MPL try to connect in a queue\n");
+	
     if (network_interface->connect() != NSAPI_ERROR_OK) {
         return -1;
     }
+
+	wait_ms(1000);
 
     // Stay here until we get a connection
     EventQueue *queue = mbed::mbed_event_queue();
@@ -103,6 +117,7 @@ int mcc_platform_init_connection(void) {
         return -1;
     }
 #else
+	printf("MPL try to connect by retrying\n");
     for (int i=1; i <= MCC_PLATFORM_CONNECTION_RETRY_COUNT; i++) {
         nsapi_error_t e;
         e = network_interface->connect();

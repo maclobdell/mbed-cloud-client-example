@@ -30,59 +30,14 @@
 #include "certificate_enrollment_user_cb.h"
 #endif
 
-#include "SMDeviceCentral.h"
-#include "SMDevicePeripheral.h"
 
 #include <events/mbed_events.h>
-#include "ble/BLE.h"
-#include "SecurityManager.h"
 
 // user button for clearing credential storage on startup
-InterruptIn button(BUTTON1);
+//InterruptIn button(MBED_CONF_APP_BUTTON2_PINNAME);
 
-/* for demonstration purposes we will store the peer device address
- * of the device that connects to us in the first demonstration
- * so we can use its address to reconnect to it later */
-static BLEProtocol::AddressBytes_t peer_address;
 
-#if MBED_CONF_APP_FILESYSTEM_SUPPORT
-bool create_filesystem()
-{
-    static LittleFileSystem fs("fs");
 
-    /* replace this with any physical block device your board supports (like an
-     * SD card) */
-    static HeapBlockDevice bd(4096, 256);
-
-    int err = bd.init();
-
-    if (err) {
-        return false;
-    }
-
-    err = bd.erase(0, bd.size());
-
-    if (err) {
-        return false;
-    }
-
-    err = fs.mount(&bd);
-
-    if (err) {
-        /* Reformat if we can't mount the filesystem */
-        printf("No filesystem found, formatting...\r\n");
-
-        err = fs.reformat(&bd);
-
-        if (err) {
-            return false;
-        }
-    }
-
-    return true;
-}
-
-#endif // MBED_CONF_APP_FILESYSTEM_SUPPORT
 
 // event based LED blinker, controlled via pattern_resource
 static Blinky blinky;
@@ -204,47 +159,6 @@ void factory_reset(void *)
     }
 }
 
-/** This example demonstrates all the basic setup required
- *  for pairing and setting up link security both as a central and peripheral
- *
- *  The example is implemented as two classes, one for the peripheral and one
- *  for central inheriting from a common base. They are run in sequence and
- *  require a peer device to connect to. During the peripheral device
- * demonstration a peer device is required to connect. In the central device
- * demonstration this peer device will be scanned for and connected to -
- * therefore it should be advertising with the same address as when it
- * connected.
- *
- *  During the test output is written on the serial connection to monitor its
- *  progress.
- */
-void ble_sm()
-{
-    BLE &ble = BLE::Instance();
-    events::EventQueue queue;
-
-#if MBED_CONF_APP_FILESYSTEM_SUPPORT
-    /* if filesystem creation fails or there is no filesystem the security
-     * manager will fallback to storing the security database in memory */
-    if (!create_filesystem()) {
-        printf("Filesystem creation failed, will use memory storage\r\n");
-    }
-#endif
-
-    while (1) {
-        {
-            printf("\r\n PERIPHERAL \r\n\r\n");
-            SMDevicePeripheral peripheral(ble, queue, peer_address);
-            peripheral.run();
-        }
-
-        {
-            printf("\r\n CENTRAL \r\n\r\n");
-            SMDeviceCentral central(ble, queue, peer_address);
-            central.run();
-        }
-    }
-}
 
 #if defined(MBED_CONF_NANOSTACK_HAL_EVENT_LOOP_USE_MBED_EVENTS) &&             \
     (MBED_CONF_NANOSTACK_HAL_EVENT_LOOP_USE_MBED_EVENTS == 1) &&               \
@@ -255,7 +169,6 @@ void ble_sm()
 
 void main_application(void)
 {
-    Thread blethread;
 
 #if defined(__linux__) && (MBED_CONF_MBED_TRACE_ENABLE == 0)
     // make sure the line buffering is on as non-trace builds do
@@ -281,18 +194,6 @@ void main_application(void)
         return;
     }
 
-    // If the User button is pressed on start, then format credential storage.
-    // This forces the device to bootstrap again and receive a new device ID
-    // from Pelion.
-    bool btn_pressed = (button.read() == 0);
-    if (btn_pressed) {
-        printf("User button is pushed on start...\n");
-        printf("FORMATTING CREDENTIAL STORAGE!\n");
-        if (mcc_platform_reset_storage() != 0) {
-            printf("FAILED TO FORMAT STORAGE!\n");
-        }
-    }
-
     // Initialize platform-specific components
     if (mcc_platform_init() != 0) {
         printf("ERROR - platform_init() failed!\n");
@@ -302,13 +203,16 @@ void main_application(void)
     // Print platform information
     mcc_platform_sw_build_info();
 
+	wait_ms(1000);
+
     // Initialize network
     if (!mcc_platform_init_connection()) {
         printf("Network initialized, connecting...\n");
     } else {
         return;
     }
-
+	
+	
     // Print some statistics of the object sizes and their heap memory
     // consumption. NOTE: This *must* be done before creating MbedCloudClient,
     // as the statistic calculation creates and deletes M2MSecurity and
@@ -320,12 +224,6 @@ void main_application(void)
     // SimpleClient is used for registering and unregistering resources to a
     // server.
     SimpleM2MClient mbedClient;
-
-    osStatus err = blethread.start(callback(ble_sm));
-    if (err != osOK) {
-        printf("ERROR: failed to start BLE thread: %ld\n", err);
-        return;
-    }
 
     // application_init() runs the following initializations:
     //  1. platform initialization

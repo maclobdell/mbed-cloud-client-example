@@ -3,7 +3,8 @@
         "ARM_UC_USE_PAL_BLOCKDEVICE=1",
         "MBED_CLOUD_CLIENT_UPDATE_STORAGE=ARM_UCP_FLASHIAP_BLOCKDEVICE",
         "DISABLE_ERROR_DESCRIPTION",
-        "MCC_MINIMAL"
+        "MCC_MINIMAL",
+        "MBEDTLS_USE_PSA_CRYPTO"
     ],
     "config": {
          "application-start-address": {
@@ -33,16 +34,29 @@
         "bluetooth-name": {
             "help"      : "Name of the bluetooth device",
             "value"     : "\"SM Device\""
-        }
+        },
+        "button2-pinname": {
+            "help"      : "PinName for button.",
+            "value"     : "BUTTON2"
+        },			
+        "bg96-reset"   : {
+            "help"      : "PinName bg96 reset line",
+            "value"     : "P1_5"
+        },
+        "bg96-pwrkey"   : {
+            "help"      : "PinName for bg96 power key line",
+            "value"     : "P1_6"
+        },
+		"pwr_mikroe"    : {
+            "help"      : "Select to power the MikroE module way",
+            "value"     : 0		
+		}
     },
     "target_overrides": {
         "*": {
-            "QUECTEL_BG96.provide-default": true,
-            "QUECTEL_BG96.tx": "p42",
-            "QUECTEL_BG96.rx": "p40",
-            "QUECTEL_BG96.cts": "p35",
-            "QUECTEL_BG96.rts": "p36",
+            "QUECTEL_BG96.provide-default"              : true,
             "platform.stdio-baud-rate"                  : 115200,
+			"platform.default-serial-baud-rate"         : 115200,
             "platform.stdio-convert-newlines"           : true,
             "platform.stdio-buffered-serial"            : true,
             "mbed-client.event-loop-size"               : 2048,
@@ -50,6 +64,7 @@
             "mbed-cloud-client.disable-certificate-enrollment" : 1,
             "nanostack-hal.event_loop_thread_stack_size": 8192,
             "mbed-trace.enable"                         : false,
+            "mbed-trace.max-level"                      : "TRACE_LEVEL_ERROR",
             "nanostack-hal.event-loop-use-mbed-events"  : true,
             "nanostack-hal.event-loop-dispatch-from-application"    : false,
             "nanostack-hal.critical-section-usable-from-interrupt"  : true,
@@ -63,9 +78,16 @@
             "mbed-client-pal.pal-max-frag-len"          : 1
         },
         "NRF52840_DK": {
+            "QUECTEL_BG96.tx": "p42",
+            "QUECTEL_BG96.rx": "p40",
+            "QUECTEL_BG96.cts": "p35",
+            "QUECTEL_BG96.rts": "p36",
+			"bg96-reset"                                : "P1_5",
+			"bg96-pwrkey"                               : "P1_6",
+
             "cordio-ll-nrf52840.cryptocell310-acceleration": 0,
             "client_app.pal-user-defined-configuration" : "\"pal_config_MbedOS.h\"",
-            
+
             "nordic.uart_0_fifo_size": 120,
             "nordic.uart_1_fifo_size": 120,
             "cellular.debug-at": 0,
@@ -159,6 +181,50 @@
             "cordio-ll.handle-vendor-specific-hci-commands": 0,
             "cordio-ll.uart-hci": 0
         
-        }
+        },
+        "LPC55S69_NS": {
+            "client_app.pal-user-defined-configuration" : "\"pal_config_MbedOS.h\"",
+            "target.network-default-interface-type"		: "CELLULAR",
+            "ppp-cell-iface.baud-rate"   				: 115200,						
+            "QUECTEL_BG96.tx"							: "P0_27",
+            "QUECTEL_BG96.rx"							: "P1_24",
+            "cellular.debug-at"							: true,
+            "lwip.ethernet-enabled"						: false,
+            "lwip.ipv4-enabled"							: true,
+            "lwip.ipv6-enabled"							: false,
+            "lwip.mem-size"								: 22000,
+            "lwip.ppp-enabled"							: false,
+            "lwip.tcp-enabled"							: true,
+            "nsapi.default-cellular-apn"				: "\"stream.co.uk\"",
+            "nsapi.default-cellular-password"			: "\"streamip\"",
+            "nsapi.default-cellular-sim-pin"			: "\"1234\"",
+            "nsapi.default-cellular-username"			: "\"streamip\"",
+            "target.header_offset"                       : "0x8000",
+            "target.app_offset"                          : "0x8400",
+            "target.features_add"                        : [ "BOOTLOADER", "STORAGE" ],
+            "target.components_add"                      : [ "SD", "FLASHIAP" ],
+            "target.extra_labels_add"                    : [ "PSA" ],
+            "target.macros_add"                          : [ "MBEDTLS_PSA_CRYPTO_C"],
+            "target.bootloader_img": "tools/mbed-bootloader-lpc55s69_ns-block_device-kvstore-v4.0.1-4-g65fd.hex",
+            "storage.storage_type"                       : "FILESYSTEM",
+            "storage_filesystem.filesystem"              : "LITTLE",
+            "storage_filesystem.blockdevice"             : "SD",
+            "update-client.bootloader-details"           : "0x36FB0",
+            "update-client.application-details"          : "0x38000",
+            "update-client.storage-address"              : "(1024*1024*64)",
+            "update-client.storage-size"                 : "0x5BC00",
+            "update-client.storage-page"                 : 1,			
+            "sd.SPI_CS"                                  : "D10",
+            "sd.SPI_MOSI"                                : "D11",
+            "sd.SPI_MISO"                                : "D12",
+            "sd.SPI_CLK"                                 : "D13",
+            "storage_filesystem.internal_base_address"   : "0x94000",
+            "storage_filesystem.rbp_internal_size"       : "(15*1024)",
+            "storage_filesystem.external_base_address"   : "0x0",
+            "storage_filesystem.external_size"           : "(1024*1024*64)",
+			"button-pinname"						  	 : "SW2",
+			"bg96-pwrkey"                                : "P1_28",
+			"pwr_mikroe"                                 :  1
+        }				
     }
 }
