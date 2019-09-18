@@ -35,10 +35,7 @@
 
 // user button for clearing credential storage on startup
 //InterruptIn button(MBED_CONF_APP_BUTTON2_PINNAME);
-
-
-
-
+	
 // event based LED blinker, controlled via pattern_resource
 static Blinky blinky;
 
@@ -160,6 +157,28 @@ void factory_reset(void *)
 }
 
 
+void test_malloc(void){
+ 
+    uint32_t size = 10240;
+	void *bufferTest = NULL;
+
+    do {
+		printf("Allocating %d bytes: ",(int)size);
+		bufferTest = malloc(size);
+		if(bufferTest !=NULL){
+			printf("PASS %p\n\r", bufferTest);
+		}else{
+			printf("FAIL\n\r");
+		}	
+		/* Don't Free the memory, go until it fails
+		free(bufferTest);
+		*/
+	} while(bufferTest !=NULL);
+		
+	
+}
+
+
 #if defined(MBED_CONF_NANOSTACK_HAL_EVENT_LOOP_USE_MBED_EVENTS) &&             \
     (MBED_CONF_NANOSTACK_HAL_EVENT_LOOP_USE_MBED_EVENTS == 1) &&               \
     defined(MBED_CONF_EVENTS_SHARED_DISPATCH_FROM_APPLICATION) &&              \
@@ -204,6 +223,13 @@ void main_application(void)
     mcc_platform_sw_build_info();
 
 	wait_ms(1000);
+	
+	if(MALLOC_TEST == 1)
+	{
+		//allocate memory until failure, print results
+		test_malloc();
+		while(1);      //stay here.  do not try to run anything else
+	}
 
     // Initialize network
     if (!mcc_platform_init_connection()) {
@@ -211,8 +237,8 @@ void main_application(void)
     } else {
         return;
     }
-	
-	
+
+   
     // Print some statistics of the object sizes and their heap memory
     // consumption. NOTE: This *must* be done before creating MbedCloudClient,
     // as the statistic calculation creates and deletes M2MSecurity and
@@ -319,4 +345,5 @@ void main_application(void)
     // Client unregistered, disconnect and exit program.
     mcc_platform_close_connection();
 #endif
+
 }
