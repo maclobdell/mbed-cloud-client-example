@@ -224,13 +224,14 @@ void main_application(void)
 
 	wait_ms(1000);
 	
-	if(MALLOC_TEST == 1)
+	#ifdef MALLOC_TEST 
 	{
 		//allocate memory until failure, print results
 		test_malloc();
 		while(1);      //stay here.  do not try to run anything else
 	}
-
+	#endif
+	
     // Initialize network
     if (!mcc_platform_init_connection()) {
         printf("Network initialized, connecting...\n");
