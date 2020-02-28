@@ -19,6 +19,10 @@
 #ifndef MCC_COMMON_CONFIG_H
 #define MCC_COMMON_CONFIG_H
 
+#define APP_WIFI_OVERRIDE 
+#define APP_WIFI_SSID "mbedEnabled"
+#define APP_WIFI_PSWD "validation"
+
 /* #define PLATFORM_ENABLE_BUTTON 1 for enabling button.*/
 #ifndef PLATFORM_ENABLE_BUTTON
 #define PLATFORM_ENABLE_BUTTON 0
@@ -30,4 +34,3 @@
 #endif
 
 #endif /* MCC_COMMON_CONFIG_H */
-

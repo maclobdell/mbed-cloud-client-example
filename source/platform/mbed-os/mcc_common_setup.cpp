@@ -122,7 +122,11 @@ int mcc_platform_interface_connect(void) {
 #ifdef MCC_USE_MBED_EVENTS
     network_interface->set_blocking(false);
 
+  #ifdef APP_WIFI_OVERRIDE
+    if (network->connect( (const char*) APP_WIFI_SSID, (const char*) APP_WIFI_PSWD, NSAPI_SECURITY_WPA_WPA2)) {  
+  #else
     if (network_interface->connect() != NSAPI_ERROR_OK) {
+  #endif
         return -1;
     }
 
